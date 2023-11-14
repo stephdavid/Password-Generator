@@ -89,131 +89,62 @@ var upperCasedCharacters = [
 ];
 
 let message = "Do you want a strong unique password?"
-let bye = "OK. Bye."
-let length = 8,
+let bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
 
 // Collect all the individual arrays into an array of arrays
 const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters];
 
-/*
 // Function to prompt user for password options
 function getPasswordOptions() {
-  return confirm(message);
-}
+  let askUser = confirm("Do you want a strong password?");
 
-if (getPasswordOptions()) {
-  var length = parseInt(prompt("Great! Select your rquired length from 8 to 128 characters):"));
-  // Validate the length input
-  if (isNaN(length) || length < 8 || length > 128) {
-    alert("Please enter a valid number from 8 to 128");
+  if (askUser) {
+    // Ask/prompt the user to select a length from 8 to 128 for their password
+    let length = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters):"));
+    for (var i = 0; i < 3; i++) {
+      // Validate the length given by the user 3 chances
+      if (!isNaN(length) && length >= 8 && length < 128) {
+        getMoreOptions();
+      } else {
+        length = parseInt(prompt("Please provide a number from 8 to 128):"));
+      }
+    } alert(bye);
+    return;
+
+    function getMoreOptions() {
+      for (var i = 0; i < 1; i++) {
+        // Confirm whether to include special characters
+        let specialChars = confirm("Do you want special characters?");
+        // Confirm whether to include numbers
+        let numbers = confirm("Do you want numbers?");
+        // Confirm whether to include lowercase characters
+        let lowerCase = confirm("Do you want lower case letters?");
+        // Confirm whether to include uppercase characters
+        let upperCase = confirm("Do you want upper case letters?");
+        if (specialChars || numbers || lowerCase || upperCase) {
+          return {
+            length: length,
+            specialChars: specialChars,
+            numbers: numbers,
+            lowerCase: lowerCase,
+            upperCase: upperCase
+          }
+        } else {
+          selectRqd = confirm("You need to select at least one of the following options:")
+          if (!selectRqd) {
+            alert(bye);
+            break;
+            
+          } 
+        }
+      }
+    }
   } else {
     alert(bye);
+    return;
   }
-} else {
-  alert(bye);
-}
-*/
-
-// Function for getting a random element from an array
-//function getRandom(arr, length) {
-function getRandom(arr, length) {
-  // Using the flat() method, concatenate the arrays in the array of arrays to make a one dimensional array
-  const flatArray = allArrays.flat();
-
-  // Declare and initialize an empty array to hold the randomly selected elements
-  const randomChars = [];
-
-  //using a for loop iterate through the flat array to randomize its index
-  for (let i = 0; i < length; i++) {
-    //randomize the flat array's index using JavaScript's random function "combo": Mathfloor(Math.random() - Math.random() returns a floating-point number greater than or equal to 0 and less than 1, and Math.floor() rounds that value down to the nearest whole number from any throughout all elements of the array
-    const randomIndex = Math.floor(Math.random() * flatArray.length);
-
-    //the indices with corresponding elements of the randomized index are then included in the empty randomChars array
-    randomChars.push(flatArray[randomIndex]);
-  }
-  return randomChars;
 }
 
 
-//const randomSelection = getRandomSelection(arrayOfArrays, length);
-const randoms = getRandom(allArrays, length);
+getPasswordOptions();
 
-// Log the result
-console.log(randoms);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-function renderItem() {
-  let randArrIndex;
-  do {
-    randArrIndex = Math.floor(Math.random() * arr.length);
-    //get another index if this array already have the minimum number
-    //and there is another array that still didn't reach the minimum
-  } while (arrCount[randArrIndex] >= minimum && arrCount.some((e) => e < minimum));
-
-  //increase the count for the selected array index
-  arrCount[randArrIndex]++;
-
-  //now select a random Item from that array (we need its length to get a valid index)
-  let randItemIndex = Math.floor(Math.random() * arr[randArrIndex].length);
-  return arr[randArrIndex][randItemIndex];
-}
-
-function generateRandom() {
-  let randomValue = "";
-  //!! the string need to be at least equal to: minimum * arr.length
-  // otherwise you will have an infinite loop
-  for (let i = 0; i < 6; i++) {
-    randomValue += renderItem();
-  }
-  return randomValue;
-}
-console.log(generateRandom());
-
-// Function to prompt user for password options
-function getPasswordOptions() {
-
-}
-
-// Function for getting a random element from an array
-function getRandom(arr) {
-
-}
-
-// Function to generate password with user input
-function generatePassword() {
-
-}
-
-// Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector('#password');
-
-  passwordText.value = password;
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
-*/
