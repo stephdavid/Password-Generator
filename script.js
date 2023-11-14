@@ -94,6 +94,15 @@ let bye = "Looks like you don't want to continue. Come back when you'd like to c
 // Collect all the individual arrays into an array of arrays
 const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters];
 
+// Flatten the array of arrays into a single array
+const flatArray = allArrays.flat();
+
+const randomChars = [];
+
+const optionsObj = {};
+
+let password = '';
+
 // Function to prompt user for password options
 function getPasswordOptions() {
   let askUser = confirm("Do you want a strong password?");
@@ -115,7 +124,6 @@ function getPasswordOptions() {
     return;
 
     function getMoreOptions() {
-      debugger;
       for (var i = 0; i < 1; i++) {
         // Confirm whether to include special characters
         let specialChars = confirm("Do you want special characters?");
@@ -126,7 +134,7 @@ function getPasswordOptions() {
         // Confirm whether to include uppercase characters
         let upperCase = confirm("Do you want upper case letters?");
         if (specialChars || numbers || lowerCase || upperCase) {
-          // if at least one of the options is selected return an object - this should break out of the loop but it doesn't
+          // if at least one of the options is selected return an object
           optionsObj = {
             length: length,
             specialChars: specialChars,
@@ -141,8 +149,7 @@ function getPasswordOptions() {
             alert(bye);
             return false; // tutor recommendation
           }
-
-        };
+        }
       }
     }
   } else {
@@ -151,5 +158,57 @@ function getPasswordOptions() {
 } 
 }
 
+// Function for getting a random element from an array
+debugger;
+function getRandom(arr, count) {
+  randomChars = []; // may need const
+  // Using a for loop, initialize randomChars array, generate a random index, and add corresponding characters to the randomChars array
+  for (let i = 0; i < arr.length; i++) {
+    const randomIndex = Math.floor(Math.random() * flatArray.length);
+    randomChars.push(arr[randomIndex]);
+  }
+  return randomChars; // may not be necessary
+}
+
+// Function to generate password with user input
+function generatePassword(arr, obj) {
+  password = ''; //may need let
+  // using a for loop interate through the object to collect user selected preferences
+  for (const option in obj) {
+    if (obj[option]) {
+      const charsToUse =
+        option === 'specialChars' ? specialCharacters :
+        option === 'numbers' ? numericCharacters :
+        option === 'lowerCase' ? lowerCasedCharacters :
+        option === 'upperCase' ? upperCasedCharacters : [];
+
+      // Get a random character from the selected character set
+      const aRandomChar = getRandom(charsToUse, 1)[0];
+      password += aRandomChar;
+    }
+  }
+}
+
 getPasswordOptions();
 
+generatePassword(randomChars, optionsObj);
+
+
+
+
+/*
+
+// Get references to the #generate element
+var generateBtn = document.querySelector('#generate');
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector('#password');
+
+  passwordText.value = password;
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener('click', writePassword);
+*/
