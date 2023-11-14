@@ -104,7 +104,10 @@ function getPasswordOptions() {
     for (var i = 0; i < 3; i++) {
       // Validate the length given by the user 3 chances
       if (!isNaN(length) && length >= 8 && length < 128) {
-        getMoreOptions();
+        // tutor assistance to get out of the loop and function
+        if (getMoreOptions() === false) {
+          return;
+        }
       } else {
         length = parseInt(prompt("Please provide a number from 8 to 128):"));
       }
@@ -112,6 +115,7 @@ function getPasswordOptions() {
     return;
 
     function getMoreOptions() {
+      debugger;
       for (var i = 0; i < 1; i++) {
         // Confirm whether to include special characters
         let specialChars = confirm("Do you want special characters?");
@@ -122,29 +126,30 @@ function getPasswordOptions() {
         // Confirm whether to include uppercase characters
         let upperCase = confirm("Do you want upper case letters?");
         if (specialChars || numbers || lowerCase || upperCase) {
-          return {
+          // if at least one of the options is selected return an object - this should break out of the loop but it doesn't
+          optionsObj = {
             length: length,
             specialChars: specialChars,
             numbers: numbers,
             lowerCase: lowerCase,
             upperCase: upperCase
           }
+          return optionsObj;
         } else {
           selectRqd = confirm("You need to select at least one of the following options:")
           if (!selectRqd) {
             alert(bye);
-            break;
-            
-          } 
-        }
+            return false; // tutor recommendation
+          }
+
+        };
       }
     }
   } else {
     alert(bye);
     return;
-  }
+} 
 }
-
 
 getPasswordOptions();
 
