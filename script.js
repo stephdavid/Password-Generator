@@ -88,9 +88,6 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-let message = "Do you want a strong unique password?"
-let bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
-
 // Collect all the individual arrays into an array of arrays
 const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters];
 
@@ -99,80 +96,78 @@ const flatArray = allArrays.flat();
 
 const randomChars = [];
 
-const optionsObj = {};
-
-let password = '';
-
 // Function to prompt user for password options
 function getPasswordOptions() {
-  let askUser = confirm("Do you want a strong password?");
+  const message = "Do you want a strong unique password?"
+  const askUser = confirm(message);
+  const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
 
   if (askUser) {
     // Ask/prompt the user to select a length from 8 to 128 for their password
-    let length = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters):"));
-    for (var i = 0; i < 3; i++) {
-      // Validate the length given by the user 3 chances
+    let length = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
+    // Give the user 2 chances
+    for (var i = 0; i < 2; i++) {
+      // Validate the length
       if (!isNaN(length) && length >= 8 && length < 128) {
-        // tutor assistance to get out of the loop and function
-        if (getMoreOptions() === false) {
-          return;
-        }
+        getMoreOptions();
+        return;
       } else {
-        length = parseInt(prompt("Please provide a number from 8 to 128):"));
+        length = parseInt(prompt("Please provide a number from 8 to 128)."));
       }
     } alert(bye);
     return;
-
-    function getMoreOptions() {
-      for (var i = 0; i < 1; i++) {
-        // Confirm whether to include special characters
-        let specialChars = confirm("Do you want special characters?");
-        // Confirm whether to include numbers
-        let numbers = confirm("Do you want numbers?");
-        // Confirm whether to include lowercase characters
-        let lowerCase = confirm("Do you want lower case letters?");
-        // Confirm whether to include uppercase characters
-        let upperCase = confirm("Do you want upper case letters?");
-        if (specialChars || numbers || lowerCase || upperCase) {
-          // if at least one of the options is selected return an object
-          optionsObj = {
-            length: length,
-            specialChars: specialChars,
-            numbers: numbers,
-            lowerCase: lowerCase,
-            upperCase: upperCase
-          }
-          return optionsObj;
-        } else {
-          selectRqd = confirm("You need to select at least one of the following options:")
-          if (!selectRqd) {
-            alert(bye);
-            return false; // tutor recommendation
-          }
-        }
-      }
-    }
   } else {
     alert(bye);
     return;
   }
 }
 
+function getMoreOptions() {
+  const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
+ // With the while loop, there is no limit on the number of chances the user might have, so tell them how they can leave the loop by selecting cancel
+  while (true) {
+    let specialChars = confirm("Do you want special characters?");
+    // Confirm whether to include numbers
+    let numbers = confirm("Do you want numbers?");
+    // Confirm whether to include lowercase characters
+    let lowerCase = confirm("Do you want lower case letters?");
+    // Confirm whether to include uppercase characters
+    let upperCase = confirm("Do you want upper case letters?");
+    if (specialChars || numbers || lowerCase || upperCase) {
+      // if at least one of the options is selected return an object
+      const optionsObj = {
+        length: length,
+        specialChars: specialChars,
+        numbers: numbers,
+        lowerCase: lowerCase,
+        upperCase: upperCase
+      }
+      return optionsObj;
+    } else {
+      // If no option is selected
+      selectRqd = confirm("You need to select at least one of the following options. Select cancel if you don't wish to proceed.");
+      if (!selectRqd) {
+        alert(bye);
+        return false; // tutor recommendation
+      }
+    } 
+  }
+}
+
 // Function for getting a random element from an array
-debugger;
+//debugger;
 function getRandom(arr, count) {
-  randomChars = []; // may need const
   // Using a for loop, initialize randomChars array, generate a random index, and add corresponding characters to the randomChars array
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < count; i++) {
     const randomIndex = Math.floor(Math.random() * flatArray.length);
     randomChars.push(arr[randomIndex]);
   }
-  return randomChars; // may not be necessary
+  return;
 }
 
 // Function to generate password with user input
 function generatePassword(arr, obj) {
-  password = ''; //may need let
+  let password = '';
   // using a for loop interate through the object to collect user selected preferences
   for (const option in obj) {
     if (obj[option]) {
@@ -183,24 +178,25 @@ function generatePassword(arr, obj) {
               option === 'upperCase' ? upperCasedCharacters : [];
 
       // Get a random character from the selected character set
-      const aRandomChar = getRandom(charsToUse, 1)[0];
+      const aRandomChar = getRandom(charsToUse, 1)[0]; //array with count
       password += aRandomChar;
     }
   }
+  return password;
 }
 
-getPasswordOptions();
-
-generatePassword(randomChars, optionsObj);
-
 // Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
+const generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword(optionsObj);//
-  var passwordText = document.querySelector('#password');
-
+  const optionsObj = getPasswordOptions();
+  if (!optionsObj) {
+    alert(bye);
+    return; // in the event that user cancels
+  }
+  const password = generatePassword(randomChars, optionsObj);
+  let passwordText = document.querySelector('#password');
   passwordText.value = password;
 }
 
