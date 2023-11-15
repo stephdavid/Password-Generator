@@ -96,6 +96,7 @@ const flatArray = allArrays.flat();
 
 const randomChars = [];
 
+
 // Function to prompt user for password options
 function getPasswordOptions() {
   const message = "Do you want a strong unique password?"
@@ -124,7 +125,7 @@ function getPasswordOptions() {
 
 function getMoreOptions() {
   const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
- // With the while loop, there is no limit on the number of chances the user might have, so tell them how they can leave the loop by selecting cancel
+  // With the while loop, there is no limit on the number of chances the user might have, so tell them how they can leave the loop by selecting cancel
   while (true) {
     let specialChars = confirm("Do you want special characters?");
     // Confirm whether to include numbers
@@ -150,7 +151,7 @@ function getMoreOptions() {
         alert(bye);
         return false; // tutor recommendation
       }
-    } 
+    }
   }
 }
 
