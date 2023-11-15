@@ -155,7 +155,7 @@ function getPasswordOptions() {
   } else {
     alert(bye);
     return;
-} 
+  }
 }
 
 // Function for getting a random element from an array
@@ -178,9 +178,9 @@ function generatePassword(arr, obj) {
     if (obj[option]) {
       const charsToUse =
         option === 'specialChars' ? specialCharacters :
-        option === 'numbers' ? numericCharacters :
-        option === 'lowerCase' ? lowerCasedCharacters :
-        option === 'upperCase' ? upperCasedCharacters : [];
+          option === 'numbers' ? numericCharacters :
+            option === 'lowerCase' ? lowerCasedCharacters :
+              option === 'upperCase' ? upperCasedCharacters : [];
 
       // Get a random character from the selected character set
       const aRandomChar = getRandom(charsToUse, 1)[0];
@@ -193,17 +193,12 @@ getPasswordOptions();
 
 generatePassword(randomChars, optionsObj);
 
-
-
-
-/*
-
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePassword(optionsObj);//
   var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
@@ -211,4 +206,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
-*/
