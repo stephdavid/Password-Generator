@@ -1,92 +1,14 @@
 // Array of special characters to be included in password
-var specialCharacters = [
-  '@',
-  '%',
-  '+',
-  '\\',
-  '/',
-  "'",
-  '!',
-  '#',
-  '$',
-  '^',
-  '?',
-  ':',
-  ',',
-  ')',
-  '(',
-  '}',
-  '{',
-  ']',
-  '[',
-  '~',
-  '-',
-  '_',
-  '.'
-];
+let specialCharacters = ['@', '%', '+', '\\', '/', "'", '!', '#', '$', '^', '?', ':', ',', ')', '(', '}', '{', ']', '[', '~', '-', '_', '.'];
 
 // Array of numeric characters to be included in password
-var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+let numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 // Array of lowercase characters to be included in password
-var lowerCasedCharacters = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z'
-];
+let lowerCasedCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 // Array of uppercase characters to be included in password
-var upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
+let upperCasedCharacters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 // Collect all the individual arrays into an array of arrays
 const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters];
@@ -94,8 +16,14 @@ const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, u
 // Flatten the array of arrays into a single array
 const flatArray = allArrays.flat();
 
-const randomChars = [];
+//declare and initialize global values that are used in multiple functions - will work on making them local, returning and accepting
+let optionsObj = {};
+let pwdLength = "";
+let randomChars = [];
+let charsToUse = [];
+let password = "";
 
+/* -------------------------------------------------------------------------------------------------------------------- */
 
 // Function to prompt user for password options
 function getPasswordOptions() {
@@ -105,26 +33,22 @@ function getPasswordOptions() {
 
   if (askUser) {
     // Ask/prompt the user to select a length from 8 to 128 for their password
-    let length = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
+    pwdLength = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
     // Give the user 2 chances
     for (var i = 0; i < 2; i++) {
       // Validate the length
-      if (!isNaN(length) && length >= 8 && length < 128) {
-        getMoreOptions();
-        return;
-      } else {
-        length = parseInt(prompt("Please provide a number from 8 to 128)."));
+      if (isNaN(pwdLength) || pwdLength < 8 || pwdLength > 128) {
+        pwdLength = parseInt(prompt("Please provide a number from 8 to 128)."));
       }
-    } alert(bye);
-    return;
+    }
+    if (!pwdLength) {
+      alert(bye);
+      return false;
+    }
   } else {
     alert(bye);
-    return;
+    return false;
   }
-}
-
-function getMoreOptions() {
-  const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
   // With the while loop, there is no limit on the number of chances the user might have, so tell them how they can leave the loop by selecting cancel
   while (true) {
     let specialChars = confirm("Do you want special characters?");
@@ -135,15 +59,17 @@ function getMoreOptions() {
     // Confirm whether to include uppercase characters
     let upperCase = confirm("Do you want upper case letters?");
     if (specialChars || numbers || lowerCase || upperCase) {
-      // if at least one of the options is selected return an object
-      const optionsObj = {
-        length: length,
+      // if at least one of the options is selected add them to the optionsObj object - the length entry/property has already been added
+      optionsObj = {
         specialChars: specialChars,
         numbers: numbers,
         lowerCase: lowerCase,
         upperCase: upperCase
       }
-      return optionsObj;
+      // add an additional property to (pwdLength) the object
+      optionsObj.pwdLength = pwdLength;
+      console.log(optionsObj);
+      return;
     } else {
       // If no option is selected
       selectRqd = confirm("You need to select at least one of the following options. Select cancel if you don't wish to proceed.");
@@ -155,51 +81,60 @@ function getMoreOptions() {
   }
 }
 
+// the function is a bit long i.e. too many things to do, and not portable - will try to split it again but the object does not seem to travel well
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+
 // Function for getting a random element from an array
 //debugger;
-function getRandom(arr, count) {
-  // Using a for loop, initialize randomChars array, generate a random index, and add corresponding characters to the randomChars array
-  for (let i = 0; i < count; i++) {
+function getRandom() {
+  // Using a for loop, generate a random index, and add/push corresponding characters to the randomChars array
+  for (let i = 0; i < optionsObj.pwdLength; i++) {
     const randomIndex = Math.floor(Math.random() * flatArray.length);
-    randomChars.push(arr[randomIndex]);
+    randomChars.push(flatArray[randomIndex]);
   }
-  return;
+  return randomChars.join('');
 }
 
-// Function to generate password with user input
-function generatePassword(arr, obj) {
-  let password = '';
-  // using a for loop interate through the object to collect user selected preferences
-  for (const option in obj) {
-    if (obj[option]) {
-      const charsToUse =
-        option === 'specialChars' ? specialCharacters :
-          option === 'numbers' ? numericCharacters :
-            option === 'lowerCase' ? lowerCasedCharacters :
-              option === 'upperCase' ? upperCasedCharacters : [];
+/* -------------------------------------------------------------------------------------------------------------------- */
 
+  // Function to generate password with user input
+  function generatePassword() {
+
+    // using a for loop interate through the object to collect user selected preferences
+
+    for (const option in optionsObj) {
+      if (optionsObj.hasOwnProperty(option) && optionsObj[option] === true) {
+        charsToUse.push(...flatArray);
+      }
       // Get a random character from the selected character set
-      const aRandomChar = getRandom(charsToUse, 1)[0]; //array with count
-      password += aRandomChar;
+    //  randomChars = getRandom(charsToUse, optionsObj); //array
     }
+    password += getRandom();
+    return password;
   }
-  return password;
-}
 
-// Get references to the #generate element
-const generateBtn = document.querySelector('#generate');
+  // Get references to the #generate element
+const generateBtn = document.querySelector('#generate'); // I've used getElementById for css but querySelector works for any valid CSS selecter not just id
+  
 
-// Write password to the #password input
-function writePassword() {
-  const optionsObj = getPasswordOptions();
-  if (!optionsObj) {
-    alert(bye);
-    return; // in the event that user cancels
+/* -------------------------------------------------------------------------------------------------------------------- */
+
+  // Write password to the #password input
+  function writePassword() {
+    getPasswordOptions();
+    // getMoreOptions();
+    //getRandom();
+    generatePassword();
+
+    let passwordText = document.querySelector('#password');
+    passwordText.value = password;
   }
-  const password = generatePassword(randomChars, optionsObj);
-  let passwordText = document.querySelector('#password');
-  passwordText.value = password;
-}
 
-// Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
+/* -------------------------------------------------------------------------------------------------------------------- */
+
+  // Add event listener to generate button
+generateBtn.addEventListener('click', function() {
+  writePassword();
+});
+  
