@@ -31,6 +31,9 @@ function getPasswordOptions() {
   const askUser = confirm(message);
   const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
 
+  //Ensure that the optionsObj is empty
+  optionsObj = {};
+
   if (askUser) {
     // Ask/prompt the user to select a length from 8 to 128 for their password
     pwdLength = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
@@ -88,11 +91,22 @@ function getPasswordOptions() {
 // Function for getting a random element from an array
 //debugger;
 function getRandom() {
-  // Using a for loop, generate a random index, and add/push corresponding characters to the randomChars array
+
+  // Clear any previous values in randomChars and selectedOptions
+  randomChars = [];
+  // Declare and initialize these arrays as empty
+  let selectedOptions = [];
+  let randomIndex = [];
+
+  // Iterate through the selected character sets and add corresponding characters to the randomChars array
   for (let i = 0; i < optionsObj.pwdLength; i++) {
-    const randomIndex = Math.floor(Math.random() * flatArray.length);
-    randomChars.push(flatArray[randomIndex]);
+    // Get a random character from the selected character set
+    selectedOptions = charsToUse[Math.floor(Math.random() * charsToUse.length)];
+    randomIndex = Math.floor(Math.random() * selectedOptions.length);
+    randomChars.push(selectedOptions[randomIndex]);
   }
+
+  // Join the random characters array into a string and return it
   return randomChars.join('');
 }
 
@@ -101,16 +115,35 @@ function getRandom() {
 // Function to generate password with user input
 function generatePassword() {
 
-  // using a for loop interate through the object to collect user selected preferences
-
+  // Clear any previous values in the password string and the charsToUse array
+  password = '';
+  charsToUse = [];
+  
+  // Iterate through the object to collect user-selected preferences
   for (const option in optionsObj) {
     if (optionsObj.hasOwnProperty(option) && optionsObj[option] === true) {
-      charsToUse.push(...flatArray);
+      // Append the selected character set to charsToUse based on user's choices
+      switch (option) {
+        case "specialChars":
+          charsToUse.push(...specialCharacters);
+          break;
+        case "numbers":
+          charsToUse.push(...numericCharacters);
+          break;
+        case "lowerCase":
+          charsToUse.push(...lowerCasedCharacters);
+          break;
+        case "upperCase":
+          charsToUse.push(...upperCasedCharacters);
+          break;
+      }
     }
-    // Get a random character from the selected character set
-    //  randomChars = getRandom(charsToUse, optionsObj); //array
   }
-  password += getRandom();
+
+  // Using the getRandom function, generate a password based on the selected character sets
+  password = getRandom();
+
+  // Return the generated password
   return password;
 }
 
