@@ -23,22 +23,30 @@ let randomChars = [];
 let charsToUse = [];
 let password = "";
 
+const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
+
+
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 // Function to prompt user for password options
+
 function getPasswordOptions() {
+
   const message = "Do you want a strong unique password?"
+  const pwdLength = "Select the password length you require - it must be from 8 to 128 characters).";
+  const numPlease = "Please provide a number from 8 to 128).";
+  const selectRqd = "You need to select at least one of the following options. Select cancel if you don't wish to proceed.";
+
   const askUser = confirm(message);
-  const bye = "Looks like you don't want to continue. Come back when you'd like to continue. Bye."
 
   if (askUser) {
     // Ask/prompt the user to select a length from 8 to 128 for their password
-    pwdLength = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
+    pwdLength = parseInt(prompt(pwdLength));
     // Give the user 2 chances
     for (var i = 0; i < 2; i++) {
       // Validate the length
       if (isNaN(pwdLength) || pwdLength < 8 || pwdLength > 128) {
-        pwdLength = parseInt(prompt("Please provide a number from 8 to 128)."));
+        pwdLength = parseInt(prompt(numPlease));
       }
     }
     if (!pwdLength) {
@@ -49,6 +57,7 @@ function getPasswordOptions() {
     alert(bye);
     return false;
   }
+
   // With the while loop, there is no limit on the number of chances the user might have, so tell them how they can leave the loop by selecting cancel
   while (true) {
     let specialChars = confirm("Do you want special characters?");
@@ -72,7 +81,7 @@ function getPasswordOptions() {
       return;
     } else {
       // If no option is selected
-      selectRqd = confirm("You need to select at least one of the following options. Select cancel if you don't wish to proceed.");
+      selectRqd = confirm(selectRqd);
       if (!selectRqd) {
         alert(bye);
         return false; // tutor recommendation
@@ -81,13 +90,16 @@ function getPasswordOptions() {
   }
 }
 
-// the function is a bit long i.e. too many things to do, and not portable - will try to split it again but the object does not seem to travel well
+// this function is a bit long i.e. too many things to do, and not portable - will try to split it again but the object does not seem to travel well and it is part of the provided template
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 // Function for getting a random element from an array
-//debugger;
+
 function getRandom() {
+
+  // To show that I've been paying attention in class :-) , using a "for each" loop, generate a random index, and add/push corresponding characters to the randomChars array
+
   // Using a for loop, generate a random index, and add/push corresponding characters to the randomChars array
   for (let i = 0; i < optionsObj.pwdLength; i++) {
     const randomIndex = Math.floor(Math.random() * flatArray.length);
@@ -98,10 +110,11 @@ function getRandom() {
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 
-  // Function to generate password with user input
+// Function to generate password with user input
+  
   function generatePassword() {
 
-    // using a for loop interate through the object to collect user selected preferences
+    // using a "for in" loop interate through the object to collect user selected preferences
 
     for (const option in optionsObj) {
       if (optionsObj.hasOwnProperty(option) && optionsObj[option] === true) {
@@ -116,12 +129,13 @@ function getRandom() {
 
   // Get references to the #generate element
 const generateBtn = document.querySelector('#generate'); // I've used getElementById for css but querySelector works for any valid CSS selecter not just id
-  
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 
-  // Write password to the #password input
-  function writePassword() {
+// Write password to the #password input
+  
+function writePassword() {
+    
     getPasswordOptions();
     // getMoreOptions();
     //getRandom();
@@ -133,7 +147,8 @@ const generateBtn = document.querySelector('#generate'); // I've used getElement
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 
-  // Add event listener to generate button
+// Add event listener to generate button
+  
 generateBtn.addEventListener('click', function() {
   writePassword();
 });
