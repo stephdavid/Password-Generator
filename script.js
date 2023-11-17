@@ -71,7 +71,6 @@ function getPasswordOptions() {
       }
       // add an additional property to (pwdLength) the object
       optionsObj.pwdLength = pwdLength;
-      console.log(optionsObj);
       return;
     } else {
       // If no option is selected
@@ -150,14 +149,11 @@ function generatePassword() {
 // Get references to the #generate element
 const generateBtn = document.querySelector('#generate'); // I've used getElementById for css but querySelector works for any valid CSS selecter not just id
 
-
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 // Write password to the #password input
 function writePassword() {
   getPasswordOptions();
-  // getMoreOptions();
-  //getRandom();
   generatePassword();
 
   let passwordText = document.querySelector('#password');
