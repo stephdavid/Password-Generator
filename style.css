@@ -93,6 +93,10 @@ button[disabled] {
   background: #c0c7cf;
 }
 
+span#passwordText, #copy {
+  font-size: 14px;
+}
+
 .float-right {
   float: right;
 }
@@ -104,7 +108,7 @@ button[disabled] {
   border: none;
   display: block;
   width: 100%;
-  padding-top: 15px;
+  padding-top: 80px;
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 85px;

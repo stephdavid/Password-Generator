@@ -2,34 +2,49 @@
 <html lang="en-gb">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Password Generator</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        form i {
+            margin-left: -30px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="wrapper">
-    <header>
-      <h1>Password Generator</h1>
-    </header>
-    <div class="card">
-      <div class="card-header">
-        <h2>Generate a Password</h2>
-      </div>
+    <div class="wrapper">
+        <header>
+            <h1>Password Generator</h1>
+        </header>
 
-      <div class="card-body">
-        <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
-      </div>
-      <div class="card-footer">
-        <button type="button" id="generate" class="btn">Generate Password</button>
-      </div>
+        <main class="card">
+            <div class="card-header">
+                <h2>Generate a Password</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <!-- As I wanted to include an icon (with text to make it accessible) I changed the textarea element to the input element-->
+                    <input type="type" id="password" readonly placeholder="Your Secure Password"
+                        aria-label="Generated Password" minlength="8" />
+                </div>
+                <div class="card-footer">
+                    <!-- Including a label allows the accompanying text to be clicked as the icon - thereby extending the clickable area -->
+                    <label id="togglePassword"><i class="bi bi-eye-slash"></i> <span id="passwordText"> Hide
+                            password</span></label>
+                    <button type="button" id="generate" class="btn">Generate Password</button>
 
+                    <label id="copy"><i class="bi bi-clipboard"></i> <span id="copyText"> Copy password</span></label>
+                </div>
+            </div>
+        </main>
     </div>
-  </div>
-  
-  <script src="script.js"></script>
-</body>
 
+    <script src="script.js"></script>
+
+</body>
 </html>
