@@ -14,7 +14,8 @@ let upperCasedCharacters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K
 const allArrays = [specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters];
 
 // Flatten the array of arrays into a single array
-const flatArray = allArrays.flat();
+// Not needed in the end but a nice expression
+//const flatArray = allArrays.flat();
 
 // Declare and initialize global values that are used in and shared among multiple functions
 let optionsObj = {};
@@ -40,7 +41,7 @@ function getPasswordOptions() {
 
   if (askUser) {
     // Ask/prompt the user to select a length from 8 to 128 for their password
-    pwdLength = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters)."));
+    pwdLength = parseInt(prompt("Select the password length you require - it must be from 8 to 128 characters."));
     // Give the user 2 chances and use a for loop to count them
     for (var i = 0; i < 2; i++) {
       // Validate the length - if too long or too short repeat the question twice
@@ -80,7 +81,7 @@ function getPasswordOptions() {
       optionsObj.pwdLength = pwdLength;
       return;
     } else {
-      // If no option is selected then the confirm modal appears - it will continue until at least one option is selected or cancel is selecte.
+      // If no option is selected then the confirm modal appears - it will continue until at least one option is selected or cancel is selected.
       selectRqd = confirm("You need to select at least one of the following options. Select cancel if you don't wish to proceed.");
       if (!selectRqd) {
         alert(bye);
@@ -111,7 +112,7 @@ function getRandom() {
   for (let i = 0; i < optionsObj.pwdLength; i++) {
     // Get random characters (selectedOptions) from the charsToUse array (declared and initialized in the calling function generatePassword()) which were derived from the user-selected character set options
     selectedOptions = charsToUse[Math.floor(Math.random() * charsToUse.length)];
-    // Then randomly selects one character from that set and add it to the randomChars array up to the user-selected password length
+    // Then randomly selects one character from the selected character set(s) and add it to the randomIndex array up to the user-selected password length
     randomIndex = Math.floor(Math.random() * selectedOptions.length);
     // Inditialize the randomChars array with the randomly selected character
     randomChars.push(selectedOptions[randomIndex]);
@@ -167,21 +168,22 @@ function togglePwd() {
   const passwordText = document.querySelector("#passwordText");
   const copyButton = document.querySelector("#copy");
 
-  togglePassword.addEventListener("click", function () {
-    // The default is that the password characters are displayed. First, toggle the input element's type attribute "text" (characters are displayed) to "password" (characters are hidden from prying eyes). Then the reverse - "password"(hidden) to text (displayed) .
+  togglePassword.addEventListener("click", function(){
+    // The default is that the password characters are displayed. Toggle the input element's type attribute "text" (characters are displayed) to "password" (characters are hidden from prying eyes). Then the reverse - "password"(hidden) to text (displayed) .
     const type = password2.getAttribute("type") === "password" ? "text" : "password";
     password2.setAttribute("type", type);
 
-    // Toggle the icon from an open eye to a closed one - just because I like it
+    // Toggle the icon from an open eye to a closed one - just because I like it - in both statements the "this" keyword refers here to the "togglePassword" element
     this.querySelector("i").classList.toggle("bi-eye");
     this.querySelector("i").classList.toggle("bi-eye-slash");
 
+    // This is a "ternary operator" in which a condition is followed by a question mark (?), an expression if the condition is true, then the expression if the condition is false  
     const newText = type === "password" ? "View password" : "Hide password";
     passwordText.textContent = newText;
   });
 
   // Especially helpful if the text extends beyond the screen display
-  copyButton.addEventListener("click", function () {
+  copyButton.addEventListener("click", function(){
     // copy the generated password
     password2.select();
     document.execCommand('copy');
@@ -208,6 +210,6 @@ const generateBtn = document.querySelector('#generate'); // I've used getElement
 
 
 // Add event listener to generate button
-generateBtn.addEventListener('click', function () {
+generateBtn.addEventListener('click', function() {
   writePassword();
-});
+});and
