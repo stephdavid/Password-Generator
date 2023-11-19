@@ -212,4 +212,4 @@ const generateBtn = document.querySelector('#generate'); // I've used getElement
 // Add event listener to generate button
 generateBtn.addEventListener('click', function() {
   writePassword();
-});and
+});
