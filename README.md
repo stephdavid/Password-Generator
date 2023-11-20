@@ -4,6 +4,23 @@
 ## Module 5 Challenge - Intermediate JavaScript: Password Generator
 
 
+### Challenge Requirements
+<ul>
+<li>Generate a password when the button is clicked :ballot_box_with_check:</li>
+<li>Present a series of prompts for password criteria</li>
+<li>Length of password</li>
+<li>At least 8 characters but no more than 128</li>
+<li>Character types</li>
+<ul>
+<li>Lowercase</li>
+<li>Uppercase</li>
+<li>Numeric</li>
+<li>Special characters ($@%&*, etc)</li>
+</ul>
+<li>Code should validate for each input and at least one character type should be selected</li>
+<li>Once prompts are answered then the password should be generated and displayed in an alert or written to the page</li>
+</ul>
+
 ###  Preliminary notes - index.html and styles.css
 
 <ol>
@@ -33,7 +50,7 @@ A Google search found that the code was missing a comma separator between the rg
 
 <li>I was curious. Why as it’s called a “secure password” was that there was no “Hide password” password feature in the project requirements as an element of security? I raised this in class, having viewed numerous online “Password Generator” apps that don’t do this. While our instructor, Husman, gave a good explanation, once I completed the required project tasks I thought I’d include a “hide password” feature anyway – just in case someone would be looking over your shoulder while you were using the app and, also, I liked the eye open and shut icons. What the other Password Generators did include was a copy feature. So, I thought, I'll have that too with a clipboard icon grabbed from the same content delivery network (CDN).<br><br></li>
 
-<li>Finally, the html page looked strange having a form element (button) but not the container tags &lt;form&gt;&lt;/form&gt; even though the code validated. So, to give the page more structure, I added them. I also removed a extraneous &lt;div&gt;&lt;div&gt; replacing it with &lt;main&gt;&lt;main&gt; I then changed my mind and removed the form tags, as the form element (container) reduced the space available for the inline icons thereby squeezing them out of shape.<br></li>
+<li>Finally, the html page looked strange having a <code>form</code> element (<code>button</code>) but not the container tags &lt;form&gt;&lt;/form&gt; even though the code validated. So, to give the page more structure, I added them. I also removed a extraneous &lt;div&gt;&lt;div&gt; replacing it with &lt;main&gt;&lt;main&gt; I then changed my mind and removed the form tags, as the form element (container) reduced the space available for the inline icons thereby squeezing them out of shape.<br></li>
 </ol>
 
 ---
@@ -42,19 +59,19 @@ A Google search found that the code was missing a comma separator between the rg
 <ol>
 <li>Early on in the project, I removed the line breaks from the the four <strong>character set arrays</strong>. While VSCode allowed me to collapse them, they didn’t stay that way, and scrolling and scrolling past them became tedious.<br><br>
 
-I changed the <code>var</code> variable to const for arrays and other variables that do not change, and let for those variables such as the string <code>password</code> that are expected to change. Const and let had their scope restrictions but I think it makes for more robust code.</li>
+I changed the <code>var</code> variable to <code>const</code> for arrays and other variables that do not change, and <code>let</code> for those variables such as the string <code>password</code> that are expected to change. <code>Const</code> and <code>let</code> have their <strong>scope</strong> restrictions but I think it makes for more robust code.</li>
 
-<li>I began coding the user interaction, first for the length they wanted for the password, with a <code>confirm</code> and a <code>prompt</code> message(popups/modals), and validating their input using <strong>if statements</strong>, and <strong>error handling</strong>.<br><br></li>
+<li>I began coding the user interaction, first for the length they want the password to be, with a <code>confirm</code> and a <code>prompt</code> message(popups/modals), and validating their input using <strong>if statements</strong>, and <strong>error handling</strong>.<br><br></li>
 
 <li>When the user clicks the <code>Generate Password</code> button, the function <code>GetPasswordOptions</code> is called and a <code>confirm</code> modal (<code>askUser</code>) is presented to the user.<br><br></li>
 <li>If the user presses cancel on the first <code>confirm</code> modal (askUser), an <code>alert</code> is triggered with the message: <em>"Looks like you don't want to continue. Come back when you'd like to continue. Bye."</em>. The app is then exited (returned false from the function).<br><br></li> 
 <li>If the user selects ok, a <code>prompt</code> modal is then presented with the request <em>"Select the password length you require - it must be from 8 to 128 characters."</em> If the user selects cancel, they are given two more chances and then an <code>alert</code> (bye) is triggered with the message: <em>"Looks like you don't want to continue. Come back when you'd like to continue. Bye."</em>. The app is then exited (returned false from the function).<br><br></li>
 
-<li>If the user selects a value, an if statement is used to validate their choice. If the value is a letter(<code>char</code>) or <code>string</code>, or the <code>number</code> they give is less than 8 or greater than 128, they given two more changes to make the correct choice. If at the third option they don’t give the correct value or select cancel, then an <code>alert</code> (bye) is triggered with the message: <em>"Looks like you don't want to continue. Come back when you'd like to continue. Bye."</em>. The app is then exited (returned false from the function).<br><br></li>
+<li>If the user selects a value, an if statement is used to validate their choice. If the value is a letter(<code>char</code>) or <code>string</code>, or the <code>number</code> they give is less than 8 or greater than 128, they are given two more changes to make the correct choice. If, at the third option, they don’t give the correct value or select cancel, then an <code>alert</code> (bye) is triggered with the message: <em>"Looks like you don't want to continue. Come back when you'd like to continue. Bye."</em>. The app is then exited (returned false from the function).<br><br></li>
 
-<li>A lot of toing and froing, of course I wasn't getting it right. However, I had booked a edx tutor to help me with debugging. And he was very helpful. He also recommended using <code>return false</code> rather than simply <code>return</code> to get out of the function – <em>“The 'return false' statement is often used in programming to indicate that a certain condition has not been met. It is a way of telling the program to stop executing the current code and return a false value.”</em><br><br>
+<li>A lot of toing and froing, and, of course, I wasn't getting it right. However, I had booked a edx tutor to help me with debugging. And he was very helpful. He also recommended using <code>return false</code> rather than simply <code>return</code> to get out of the function: <em>“The 'return false' statement is often used in programming to indicate that a certain condition has not been met. It is a way of telling the program to stop executing the current code and return a false value.”</em> -- Google upon search for "return false for JavaScript<br><br>
 
-It was a good boast for me to dig deeper into debugging. I spent a lot of time in Chrome browser iterating through the functions following the variable changes (or not), setting up <strong>breakpoints</strong> and <strong>watches</strong>, thereby eventually identifying the problem. This was very helpful, along with a lot of Googling. I have a lengthy list of sources.<br><br></li>
+It was a good boast for me to dig deeper into debugging. I spent a lot of time in Chrome browser iterating through the functions following the variable changes (or not in too numerous a case), setting up <strong>breakpoints</strong> and <strong>watches</strong>, thereby eventually identifying the problem. This was very helpful, along with a lot of Googling. I have a lengthy list of sources.<br><br></li>
 
 <li>It was somewhat complicated collecting the user preferences for the character sets to include in the password. I decided to create a separate temporary function named <code>moreOptions</code> to handle this with the <code>pwdLength</code> variable passed to it.<br><br></li>
 
@@ -124,9 +141,9 @@ My notes became rather cryptic as I proceeded. For example:
 <ol>
 <li>The creation of the <code>optionsObj</code> (<strong>object</strong>) presented another set of challenges, which were resolved by tenacious debugging and variable watches.<br><br></li>
 
-<li>Having successfuly obtaining a valid password length from the user, the user is then presented with a series of <code>confirm</code> modals. If the user does not select any of these options, they are given another change. This time, a <strong>while loop</strong> was used, which would continue indefinitely. So, to allow an escape from the that loop - apart from providing at least one option, a message was given in the <code>confirm</code> model, which appeared when no choice was made, that they could select <code>cancel</code> to stop the program - then the <code>alert</code> message modal and <code>return false</code>, as before.<br><br></li>
+<li>Having successfuly obtaining a valid password length from the user, the user is then presented with a series of <code>confirm</code> modals. If the user does not select any of these options, they are given another chance. This time, a <strong>while loop</strong> was used, which would continue indefinitely. So, to allow an escape from the that loop - apart from choosing at least one option, a message is given in the <code>confirm</code> model, which appears when no choice has been made, that they could select <code>cancel</code> to stop the program: <em>"You need to select at least one of the following options. Select cancel if you don't wish to proceed."</em> - then the <code>alert</code> message modal and <code>return false</code>, as before.<br><br></li>
 
-<li>I tried first to declare and initialise the object with the <code>objlength</code> property. It was misbehaving so I  changed tack, and declared and initialized the object further down with the options specialChars, numbers, lowerCase and uppercase options. I used an “object literal” to create the object using an ES6 shorthand syntax - instead of explicitly assigning values to properties I directly used variable names as property names. I then added the <code>objLength</code> with the value selected by the user. That was the easy part. Trickier was moving it about throughout the function and to other functions. I tried to use local variables, but it just wasn’t happening so I opted for a global variable.<br><br></li> 
+<li>I tried first to <em>declare and initialise</em> the object first with the <code>objlength</code> property. It was misbehaving so I changed tack, and instead declared and initialized the object further down, first with the options: <code>specialChars</code>, <code>numbers</code>, <code>lowerCase</code> and <code>uppercase</code> options. I used an <strong>object literal</strong> to create the object using an ES6 shorthand syntax - instead of explicitly assigning values to properties I directly used variable names as property names. After that, I added the <code>objLength</code> property with the value selected by the user. That was the easy part. Trickier was moving it around the functions and to other functions. I tried to use local variables, but it just wasn’t happening so I opted for a global variable.<br><br></li> 
 </ol>
 
 ---
@@ -135,7 +152,7 @@ My notes became rather cryptic as I proceeded. For example:
 <ol>
 <li>The <code>getRandom</code> and <code>generatePassword</code> functions involved a set of different issues. In the second of these functions, the <code>password</code> string and <code>charsToUse</code> array are first initialized as empty, again to ensure that previous options don’t reappear. Then the object is acted upon using the <strong>"for in” loop</strong> and a <strong>switch statement</strong> and <strong>spread syntax</strong> to pull out the user-selected character set(s) from the object. In turn, if the <strong>object's property value</strong> is <code>true</code>, the corresponding array(s) is/are then pushed to the <code>charsToUse</code> array<br><br></li>
 
-<li>Then, with a function expression, there is a call to the first function. In <code>getRandom()</code>, the global variable is initialized as an empty array – (otherwise, in subsequent program starts, previously selected values reappear). The two local variables are declared and initialized as empty. In a <strong>for loop</strong> which iterates up to the selected length of the the password, random characters derived from the selected character sets are created using the <strong>Math.floor and Math.random construction</strong>. A <code>randomIndex</code> array is then created. The randomly selected character is then pushed into the <code>randomChars</code> array. Using the join method the randomChars is then returned to the generatePassword function where it is assigned to the password variable.
+<li>Then, with a function expression, there is a call to the first function. In <code>getRandom()</code>, the global variable <code>randomChars</code> is initialized as an empty array – (otherwise, in subsequent program starts, previously selected values reappear). The two local variables, <code>selectedOptions</code> and <code>randomIndex</code> arrays, are declared and initialized as empty. In a <strong>for loop</strong> which iterates up to the user-selected length of the the password, random characters derived from the user-selected character sets are created using the <strong>Math.floor and Math.random construction</strong>. A <code>randomIndex</code> array is then created. The randomly selected character is then pushed into the <code>randomChars</code> array. Using the join method the randomChars is then returned to the generatePassword function where it is assigned to the password variable.
 
 * Debugging in Chrome became ghost busting!<br><br></li>
 </ol>
@@ -153,7 +170,7 @@ My notes became rather cryptic as I proceeded. For example:
 <li>Select and Copy input text onclick? - <a href="https://stackoverflow.com/questions/36210862/select-and-copy-input-text-onclick">https://stackoverflow.com/questions/36210862/select-and-copy-input-text-onclick</a></li>
 </ul>
 
-And the open eye, shut eye, and clipboard icons were pulled from https://www.jsdelivr.com/ a content delivery network (CDN).
+And the open eye, shut eye, and clipboard icons were pulled from https://www.jsdelivr.com/ CDN.
 
   ![open eye, closed eye and clipbloard ](icons.png) 
      
@@ -219,6 +236,10 @@ https://kittygiraudel.com/2021/04/05/an-accessible-toggle/#button-variant<br>
 
 7 ES6 Patterns Every JavaScript Developer Should be Familiar With
 https://medium.com/@Evelyn.Taylor/7-es6-patterns-every-javascript-developer-should-be-familiar-with-f24578d4b6ad<br>
+
+Adding New Properties (to objects)
+https://www.w3schools.com/js/js_object_properties.asp
+
 
 JavaScript: How to Loop over Objects
 https://blog.stackademic.com/javascript-how-to-loop-over-objects-735b0bf42e11<br>
