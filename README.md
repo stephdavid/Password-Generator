@@ -7,18 +7,18 @@
 ### Challenge Requirements
 <ul>
 <li>Generate a password when the button is clicked :ballot_box_with_check:</li>
-<li>Present a series of prompts for password criteria</li>
-<li>Length of password</li>
-<li>At least 8 characters but no more than 128</li>
+<li>Present a series of prompts for password criteria :ballot_box_with_check:</li>
+<li>Length of password :ballot_box_with_check:</li>
+<li>At least 8 characters but no more than 128 :ballot_box_with_check:</li>
 <li>Character types</li>
 <ul>
-<li>Lowercase</li>
-<li>Uppercase</li>
-<li>Numeric</li>
-<li>Special characters ($@%&*, etc)</li>
+<li>Lowercase :ballot_box_with_check:</li>
+<li>Uppercase :ballot_box_with_check:</li>
+<li>Numeric :ballot_box_with_check:</li>
+<li>Special characters ($@%&*, etc) :ballot_box_with_check:</li>
 </ul>
-<li>Code should validate for each input and at least one character type should be selected</li>
-<li>Once prompts are answered then the password should be generated and displayed in an alert or written to the page</li>
+<li>Code should validate for each input and at least one character type should be selected :ballot_box_with_check:</li>
+<li>Once prompts are answered then the password should be generated and displayed in an alert or written to the page :ballot_box_with_check:</li>
 </ul>
 
 ###  Preliminary notes - index.html and styles.css
